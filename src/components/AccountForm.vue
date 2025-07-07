@@ -8,7 +8,8 @@ import { computed, ref, watch } from 'vue'
 
 const account = computed(() => AppState.account)
 
-
+// TODO i need to be able to able to edit, the 'graduated' status
+// TODO linkedin and github are not being taken, they are mismatched with the data from the api, and are not being saved
 const accountData = ref({
 
     name: '',

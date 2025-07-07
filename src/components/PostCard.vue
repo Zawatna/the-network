@@ -59,7 +59,7 @@ async function deleteCar() {
                         @click="likePost(postProp.id)"></i></p>
                 <p v-if="postProp.likes.length" class="p-1">{{ postProp.likes.length }}</p>
             </div>
-            <p>{{ postProp.createdAt }}</p>
+            <p>{{ postProp.createdAtDateString }}</p>
             <button @click="deleteCar()" v-if="account?.id == postProp.creatorId" class="btn btn-outline-primary"
                 title="Delete Car" type="button">
                 <span class="mdi mdi-delete"></span>

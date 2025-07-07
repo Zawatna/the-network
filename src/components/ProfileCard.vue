@@ -15,6 +15,9 @@ defineProps({
             <img :src="profileProp.creatorPicture" alt="Creator Image" class="creator-img">
             <p>{{ profileProp.creatorName }} {{ profileProp.class }}</p>
             <p>{{ profileProp.bio }}</p>
+            <!-- TODO github link is not showing up when it is filled out -->
+            <!-- TODO no resume link if filled out -->
+            <!-- TODO no 'graduated' status showing -->
             <p><i class="mdi mdi-github"></i>{{ profileProp.gitHub }} | <i class="mdi mdi-linkedin"></i> {{
                 profileProp.linkedIn }}</p>
             <p>Likes {{ profileProp.likes }} <i class="mdi mdi-thumb-up-outline"></i></p>

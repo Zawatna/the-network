@@ -72,6 +72,9 @@ async function getProfileById() {
 //     }
 // }
 
+// TODO this function mimics to home page changePage exactly, so we get older/newer of home page
+// TODO we need a new service function specifically for changing a 'profile' page, so that it gets the older/newer for the profile
+// NOTE this **service function** needs to take in the profile id, and the new page number
 async function changePage(pageNumber) {
     try {
         await postsService.changePostsPage(pageNumber)

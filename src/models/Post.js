@@ -11,8 +11,8 @@ export class Post {
     this.likes = data.likes.length
 }
 
-//   get createdAtDateString() {
-//     return this.createdAt.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric', })
-// }
+  get createdAtDateString() {
+    return this.createdAt.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric', })
+}
 }
 
