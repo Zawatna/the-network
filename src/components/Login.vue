@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import { AuthService } from '../services/AuthService.js';
+import { Post } from '@/models/Post.js';
 
 const identity = computed(() => AppState.identity)
 const account = computed(() => AppState.account)
@@ -12,6 +13,10 @@ function login() {
 function logout() {
   AuthService.logout()
 }
+
+defineProps({
+  postProp: { type: Post, required: true }
+})
 
 </script>
 
@@ -35,6 +40,12 @@ function logout() {
                 Manage Account
               </div>
             </RouterLink>
+            <!-- <RouterLink :to="{ name: 'Profile Page', params: { creatorId: postProp.creatorId } }"> -->
+            <div class="list-group-item dropdown-item list-group-item-action">
+              Your Profile
+            </div>
+
+            <!-- </RouterLink> -->
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout

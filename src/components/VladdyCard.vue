@@ -8,13 +8,18 @@ defineProps({
 
 
 <template>
-    <div class="vladdy card">
+    <div class="vladdy card mb-3">
         <div class="card-body">
-            <img :src="vladdyProp.tall" alt="">
+            <img :src="vladdyProp.tall" alt="" class="img-fluid">
 
         </div>
     </div>
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.imgUrl {
+    width: 100px;
+    object-fit: cover;
+}
+</style>

@@ -7,23 +7,39 @@ import { Pop } from '@/utils/Pop.js';
 import PostCard from '@/components/PostCard.vue';
 import { vladdiesService } from '@/services/VladdiesService.js';
 import VladdyCard from '@/components/VladdyCard.vue';
+import SearchBar from '@/components/SearchBar.vue';
+import PostForm from '@/components/PostForm.vue';
 
 const posts = computed(() => AppState.posts)
 const vladdies = computed(() => AppState.vladdies)
+const currentPage = computed(() => AppState.currentPage)
+const totalPages = computed(() => AppState.totalPages)
+const currentSearch = computed(() => AppState.currentSearch)
 
 onMounted(() => {
   getPosts();
   getVladdies();
 })
 
+logger.log('posters', posts)
 
-async function getAcountDetails() {
-  console.log('getting account details')
+async function changePage(pageNumber) {
+  try {
+    if (currentSearch.value) {
+      logger.log(currentSearch.value);
+      await postsService.changeSearchPage(pageNumber, currentSearch.value)
+    } else {
+      await postsService.changePostsPage(pageNumber)
+    }
+  } catch (error) {
+    logger.error('could not get next page posts', error)
+    Pop.error(error);
+  }
+
 }
 
-
 async function getPosts() {
-  console.log('getting posts🔍📃')
+  logger.log('getting posts🔍📃')
   try {
     await postsService.getPosts()
   }
@@ -34,7 +50,7 @@ async function getPosts() {
 }
 
 async function getVladdies() {
-  console.log('getting Vladdies 🃏🃏')
+  logger.log('getting Vladdies 🃏🃏')
   try {
     await vladdiesService.getVladdies()
   }
@@ -43,32 +59,64 @@ async function getVladdies() {
   }
 }
 
+// async function getAcountDetails() {
+//   console.log('getting account details')
+// }
 
 </script>
 
 <template>
   <section class="container">
+    <div class="row">
+      <div class="col-12 mt-3 p-0">
 
-    <h1>The Network</h1>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-          Profile info and nav to Profile page </div>
-        <div class="col-md-8 my-3">
-          <div v-for="post in posts" :key="post.id">
-            <PostCard :postProp="post" />
+        <SearchBar />
+      </div>
+    </div>
+    <div class="row my-2">
+      <button :disabled="currentPage == 1" @click="changePage(currentPage - 1)" class="col-4 btn btn-outline-primary">
+        <i class="mdi mdi-arrow-left"></i>
+        newer
+      </button>
+      <div class="col-4 text-center">
+        Page {{ currentPage }} of {{ totalPages }}
+        <!-- <span>{{ currentSearch }}</span> -->
+      </div>
+      <button :disabled="currentPage == totalPages" @click="changePage(currentPage + 1)"
+        class="col-4 btn btn-outline-primary">
+        <i class="mdi mdi-arrow-right"></i>
+        older
+      </button>
+    </div>
+    <div class="row">
+      <div class="container-fluid">
+        <div class="row">
+
+
+          <!--<MiniProfileCard :miniProfileProp="miniProfile" /> -->
+          <!-- <RouterLink :to="{ name: 'Account' }">
+              Account</RouterLink> -->
+
+
+          <div class="col-md-9 my-3 p-0">
+            <!-- put post form here -->
+            <div>
+              <PostForm />
+            </div>
+
+            <div v-for="post in posts" :key="post.id">
+              <PostCard :postProp="post" />
+            </div>
 
           </div>
-        </div>
-        <div class="col-2 my-5">
-          <div v-for="vladdy in vladdies" :key="vladdy.id">
-            <VladdyCard :vladdyProp="vladdy" />
+          <div class="col-3 my-5">
+            <div v-for="vladdy in vladdies" :key="vladdy.id">
+              <VladdyCard :vladdyProp="vladdy" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-
 
   </section>
 </template>

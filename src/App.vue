@@ -14,7 +14,10 @@ import { RouterView } from 'vue-router';
     <RouterView />
   </main>
   <footer class=" text-center">
-    Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
+    Made with <i class="mdi mdi-cat text-orange"></i><i class="mdi mdi-cat text-grey"></i><i
+      class="mdi mdi-cat text-orange"></i><i class="mdi mdi-cat text-grey"></i> <i
+      class="mdi mdi-sleep-off text-teal fw-b"></i> <i class="mdi mdi-car-sports text-grey"></i> by
+    Jiu-Jitsu
   </footer>
 </template>
 

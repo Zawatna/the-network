@@ -7,8 +7,12 @@ export class Post {
     this.likeIds = data.likeIds
     this.creatorName = data.creator.name
     this.creatorPicture = data.creator.picture
-    this.createdAt = new Date()
+    this.createdAt = new Date(data.createdAt)
     this.likes = data.likes.length
 }
+
+//   get createdAtDateString() {
+//     return this.createdAt.toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric', })
+// }
 }
 
