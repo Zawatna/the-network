@@ -26,7 +26,7 @@ logger.log('posters', posts)
 async function changePage(pageNumber) {
   try {
     if (currentSearch.value) {
-      logger.log(currentSearch.value);
+      logger.log('search query', currentSearch.value);
       await postsService.changeSearchPage(pageNumber, currentSearch.value)
     } else {
       await postsService.changePostsPage(pageNumber)

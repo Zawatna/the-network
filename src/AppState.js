@@ -9,13 +9,13 @@ export const AppState = reactive({
   account: null,
   /** @type {import('./models/Post.js').Post[]} */
   posts: [],
-  
+
   currentPage: 1,
-  totalPages: Infinity,
+  totalPages: 1,
 
   currentSearch: null,
 
-  
+
   // page: `1 of 20`,
   // newer: null,
   // older: 'https://sandbox.codeworksacademy.com/api/posts?page=1' : null,
@@ -27,7 +27,7 @@ export const AppState = reactive({
 
   // /** @type {Post} */
   // activePost: null,
-  
+
   /** @type {import('./models/Vladdy.js').Vladdy[]} */
   vladdies: [],
   /** @type {import('./models/Profile.js').Profile[]} */

@@ -41,13 +41,7 @@ watch(route, () => {
     getPostsByUserId();
 })
 
-// async function changePage(pageNumber) {
-//   try {
-//     await postsService.changePostsPage(pageNumber)
-//   } catch (error) {
-//     logger.error('could not get next page posts', error)
-//     Pop.error(error);
-//   }
+
 
 async function getProfileById() {
     try {
@@ -75,15 +69,19 @@ async function getProfileById() {
 // TODO this function mimics to home page changePage exactly, so we get older/newer of home page
 // TODO we need a new service function specifically for changing a 'profile' page, so that it gets the older/newer for the profile
 // NOTE this **service function** needs to take in the profile id, and the new page number
-async function changePage(pageNumber) {
+
+async function changeProfilePage(userId, pageNumber) {
     try {
-        await postsService.changePostsPage(pageNumber)
-    } catch (error) {
-        logger.error('could not get next page posts', error)
+        await postsService.changeProfilePage(userId, pageNumber)
+    }
+    catch (error) {
+        logger.error('could not get next profile page 🚫📃🔢', error)
         Pop.error(error);
     }
+
 }
 async function getPostsByUserId() {
+
     logger.log('getting posts by user id🔍📃', userId.value)
     try {
         await postsService.getPostsByUserId(userId.value)
@@ -123,7 +121,6 @@ async function getVladdies() {
                                 <b>
                                     {{ profile.name }}
                                 </b>
-
                             </div>
                             <div>
                                 {{ profile.graduated ? 'Graduated' : '' }}
@@ -134,11 +131,13 @@ async function getVladdies() {
                                 </small>
                             </div>
                             <div>
-                                <a v-if="profile.linkedIn" href="profile.linkedIn" target="_blank"><i
-                                        class="mdi mdi-linkedin fs-4"></i>{{ profile.linkedIn }} </a>
-                                <a v-if="profile.gitHub" href="profile.gitHub" target="_blank"><i
-                                        class="mdi mdi-github fs-4"></i></a>
-                                {{ profile.gitHub }}
+                                <a v-if="profile.linkedIn" :href="profile.linkedIn" target="_blank">
+                                    <i class="mdi mdi-linkedin fs-4"></i>
+
+                                </a>
+                                <a v-if="profile.gitHub" :href="profile.gitHub" target="_blank">
+                                    <i class="mdi mdi-github fs-4"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -158,11 +157,11 @@ async function getVladdies() {
                                 <p>{{ profile.bio }} </p>
                             </div>
                             <div>
-                                <a v-if="profile.linkedIn" href="profile.linkedIn" target="_blank"><i
-                                        class="mdi mdi-linkedin fs-4"></i>{{ profile.linkedIn }} </a>
-                                <a v-if="profile.gitHub" href="profile.gitHub" target="_blank"><i
+                                <a v-if="profile.linkedIn" :href="profile.linkedIn" target="_blank"><i
+                                        class="mdi mdi-linkedin fs-4"></i></a>
+                                <a v-if="profile.gitHub" :href="profile.gitHub" target="_blank"><i
                                         class="mdi mdi-github fs-4"></i></a>
-                                {{ profile.gitHub }}
+
                             </div>
                         </div>
                     </div>
@@ -171,7 +170,7 @@ async function getVladdies() {
                         <PostForm v-if="profile?.id == account?.id && account" />
                     </div>
                     <div class="row mt-2">
-                        <button :disabled="currentPage == 1" @click="changePage(currentPage - 1)"
+                        <button :disabled="currentPage == 1" @click="changeProfilePage(userId, currentPage - 1)"
                             class="col-4 btn btn-outline-primary">
                             <i class="mdi mdi-arrow-left"></i>
                             newer
@@ -179,7 +178,8 @@ async function getVladdies() {
                         <div class="col-4 text-center">
                             Page {{ currentPage }} of {{ totalPages }}
                         </div>
-                        <button @click="changePage(currentPage + 1)" class="col-4 btn btn-outline-primary">
+                        <button :disabled="currentPage == totalPages"
+                            @click="changeProfilePage(userId, currentPage + 1)" class="col-4 btn btn-outline-primary">
                             <i class="mdi mdi-arrow-right"></i>
                             older
                         </button>

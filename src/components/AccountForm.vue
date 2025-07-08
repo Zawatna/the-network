@@ -20,6 +20,7 @@ const accountData = ref({
     resume: '',
     class: '',
     coverImg: '',
+    graduated: false,
 })
 
 watch(account, () => {
@@ -32,6 +33,7 @@ watch(account, () => {
     accountData.value.resume = account.value.resume
     accountData.value.class = account.value.class
     accountData.value.coverImg = account.value.coverImg
+    accountData.value.graduated = account.value.graduated
 }, { immediate: true })
 
 async function saveAccount() {
@@ -75,14 +77,19 @@ async function saveAccount() {
             <input v-model="accountData.gitHub" type="text" id="account-gitHub" name="account-gitHub"
                 class="form-control">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-4 mb-3">
             <label for="account-resume">Resume</label>
             <input v-model="accountData.resume" type="text" id="account-resume" name="account-resume"
                 class="form-control">
         </div>
-        <div class="col-6 mb-3">
+        <div class="col-4 mb-3">
             <label for="account-class">Class</label>
             <input v-model="accountData.class" type="text" id="account-class" name="account-class" class="form-control">
+        </div>
+        <div class="col-4 mb-3">
+            <label for="account-graduated">Graduated</label>
+            <input v-model="accountData.graduated" type="text" id="account-graduated" name="account-class"
+                class="form-control">
         </div>
         <div class="col-12 mb-3">
             <label for="account-coverImg">Cover Image url</label>
